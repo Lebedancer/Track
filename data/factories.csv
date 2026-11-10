@@ -1,0 +1,233 @@
+factory_id,supplier_id,factory_name,address_line,city,country
+FAC-0001,SUP-001,Orient Components — Bien Hoa Plant,224 Industrial Park Rd,Bien Hoa,Vietnam
+FAC-0002,SUP-001,Orient Components — Rayong Plant,304 Industrial Estate Rd,Rayong,Thailand
+FAC-0003,SUP-001,Orient Components — Penang Plant,51 Lorong Kilang,Penang,Malaysia
+FAC-0004,SUP-001,Orient Components — Gazipur Plant,277 Industrial Area Rd,Gazipur,Bangladesh
+FAC-0005,SUP-001,Orient Components — Tijuana Plant,11 Blvd. Industrial,Tijuana,Mexico
+FAC-0006,SUP-001,Orient Components — Dongguan Plant,66 Industrial Park Rd,Dongguan,China
+FAC-0007,SUP-001,Orient Components — Bekasi Plant,191 Jalan Raya Industri,Bekasi,Indonesia
+FAC-0008,SUP-002,Keyuan Works — Bien Hoa Plant,90 Nam Son Ind. Ave,Bien Hoa,Vietnam
+FAC-0009,SUP-002,Keyuan Works — Hai Phong Plant,342 Nam Son Ind. Ave,Hai Phong,Vietnam
+FAC-0010,SUP-002,Keyuan Works — Bekasi Plant,129 Jalan Perindustrian,Bekasi,Indonesia
+FAC-0011,SUP-003,Everstar Group — Gaziantep Plant,409 Organize Sanayi Blv.,Gaziantep,Turkey
+FAC-0012,SUP-003,Everstar Group — Penang Plant,269 Lorong Kilang,Penang,Malaysia
+FAC-0013,SUP-003,Everstar Group — Tijuana Plant,201 Zona Industrial,Tijuana,Mexico
+FAC-0014,SUP-003,Everstar Group — Penang Plant,159 Lorong Kilang,Penang,Malaysia
+FAC-0015,SUP-003,Everstar Group — Katowice Plant,293 Ulica Przemyslowa,Katowice,Poland
+FAC-0016,SUP-004,Aequs Works — Penang Plant,222 Jalan Perindustrian,Penang,Malaysia
+FAC-0017,SUP-004,Aequs Works — Cavite Plant,40 Industrial Park Rd,Cavite,Philippines
+FAC-0018,SUP-004,Aequs Works — Katowice Plant,145 Ulica Fabryczna,Katowice,Poland
+FAC-0019,SUP-004,Aequs Works — Katowice Plant,403 Ulica Przemyslowa,Katowice,Poland
+FAC-0020,SUP-005,Keyuan Fabrication — Katowice Plant,414 Ulica Przemyslowa,Katowice,Poland
+FAC-0021,SUP-005,Keyuan Fabrication — Penang Plant,444 Lorong Kilang,Penang,Malaysia
+FAC-0022,SUP-005,Keyuan Fabrication — Hai Phong Plant,392 Nam Son Ind. Ave,Hai Phong,Vietnam
+FAC-0023,SUP-005,Keyuan Fabrication — Ningbo Plant,349 Industrial Park Rd,Ningbo,China
+FAC-0024,SUP-005,Keyuan Fabrication — Ningbo Plant,91 Export Processing Zone,Ningbo,China
+FAC-0025,SUP-006,Orient Manufacturing — Dongguan Plant,105 Export Processing Zone,Dongguan,China
+FAC-0026,SUP-006,Orient Manufacturing — Shenzhen Plant,370 Export Processing Zone,Shenzhen,China
+FAC-0027,SUP-006,Orient Manufacturing — Bekasi Plant,478 Jalan Perindustrian,Bekasi,Indonesia
+FAC-0028,SUP-006,Orient Manufacturing — Tijuana Plant,361 Zona Industrial,Tijuana,Mexico
+FAC-0029,SUP-006,Orient Manufacturing — Gaziantep Plant,94 Fabrika Caddesi,Gaziantep,Turkey
+FAC-0030,SUP-006,Orient Manufacturing — Gazipur Plant,216 Export Processing Zone,Gazipur,Bangladesh
+FAC-0031,SUP-006,Orient Manufacturing — Penang Plant,49 Jalan Perindustrian,Penang,Malaysia
+FAC-0032,SUP-007,Pacific Components — Shenzhen Plant,,,China
+FAC-0033,SUP-007,Pacific Components — Coimbatore Plant,146 MIDC Industrial Area,Coimbatore,India
+FAC-0034,SUP-007,Pacific Components — Bien Hoa Plant,419 Industrial Park Rd,Bien Hoa,Vietnam
+FAC-0035,SUP-007,Pacific Components — Penang Plant,,,Malaysia
+FAC-0036,SUP-007,Pacific Components — Shenzhen Plant,473 Export Processing Zone,Shenzhen,China
+FAC-0037,SUP-008,Everstar Precision — Penang Plant,,,Malaysia
+FAC-0038,SUP-008,Everstar Precision — Coimbatore Plant,7 MIDC Industrial Area,Coimbatore,India
+FAC-0039,SUP-009,Meridian Plastics — Penang Plant,390 Lorong Kilang,Penang,Malaysia
+FAC-0040,SUP-009,Meridian Plastics — Tijuana Plant,297 Blvd. Industrial,Tijuana,Mexico
+FAC-0041,SUP-009,Meridian Plastics — Noida Plant,198 Phase II Industrial Estate,Noida,India
+FAC-0042,SUP-009,Meridian Plastics — Tijuana Plant,135 Blvd. Industrial,Tijuana,Mexico
+FAC-0043,SUP-010,Pacific Plastics — Manaus Plant,236 Zona Industrial,Manaus,Brazil
+FAC-0044,SUP-010,Pacific Plastics — Noida Plant,223 MIDC Industrial Area,Noida,India
+FAC-0045,SUP-010,Pacific Plastics — Coimbatore Plant,188 Phase II Industrial Estate,Coimbatore,India
+FAC-0046,SUP-010,Pacific Plastics — Coimbatore Plant,5 MIDC Industrial Area,Coimbatore,India
+FAC-0047,SUP-010,Pacific Plastics — Shenzhen Plant,140 Export Processing Zone,Shenzhen,China
+FAC-0048,SUP-011,Kalpa Works — Rayong Plant,253 Industrial Estate Rd,Rayong,Thailand
+FAC-0049,SUP-011,Kalpa Works — Penang Plant,54 Lorong Kilang,Penang,Malaysia
+FAC-0050,SUP-011,Kalpa Works — Gazipur Plant,454 Export Processing Zone,Gazipur,Bangladesh
+FAC-0051,SUP-011,Kalpa Works — Ningbo Plant,391 Export Processing Zone,Ningbo,China
+FAC-0052,SUP-011,Kalpa Works — Gaziantep Plant,152 Fabrika Caddesi,Gaziantep,Turkey
+FAC-0053,SUP-011,Kalpa Works — Ningbo Plant,424 Export Processing Zone,Ningbo,China
+FAC-0054,SUP-012,Pacific Precision — Gazipur Plant,129 Industrial Area Rd,Gazipur,Bangladesh
+FAC-0055,SUP-012,Pacific Precision — Shenzhen Plant,42 Industrial Park Rd,Shenzhen,China
+FAC-0056,SUP-012,Pacific Precision — Katowice Plant,245 Ulica Przemyslowa,Katowice,Poland
+FAC-0057,SUP-012,Pacific Precision — Bekasi Plant,14 Jalan Raya Industri,Bekasi,Indonesia
+FAC-0058,SUP-012,Pacific Precision — Coimbatore Plant,94 MIDC Industrial Area,Coimbatore,India
+FAC-0059,SUP-012,Pacific Precision — Shenzhen Plant,460 Industrial Park Rd,Shenzhen,China
+FAC-0060,SUP-012,Pacific Precision — Ningbo Plant,50 Export Processing Zone,Ningbo,China
+FAC-0061,SUP-013,Golden Lotus Fabrication — Gaziantep Plant,168 Organize Sanayi Blv.,Gaziantep,Turkey
+FAC-0062,SUP-013,Golden Lotus Fabrication — Penang Plant,230 Jalan Perindustrian,Penang,Malaysia
+FAC-0063,SUP-013,Golden Lotus Fabrication — Gazipur Plant,394 Export Processing Zone,Gazipur,Bangladesh
+FAC-0064,SUP-014,Zenith Industrial — Shenzhen Plant,396 Export Processing Zone,Shenzhen,China
+FAC-0065,SUP-014,Zenith Industrial — Hai Phong Plant,228 Industrial Park Rd,Hai Phong,Vietnam
+FAC-0066,SUP-015,Vanguard Works — Hai Phong Plant,126 Industrial Park Rd,Hai Phong,Vietnam
+FAC-0067,SUP-015,Vanguard Works — Bien Hoa Plant,208 Industrial Park Rd,Bien Hoa,Vietnam
+FAC-0068,SUP-016,Fortis Industrial — Ningbo Plant,226 Industrial Park Rd,Ningbo,China
+FAC-0069,SUP-016,Fortis Industrial — Penang Plant,107 Jalan Perindustrian,Penang,Malaysia
+FAC-0070,SUP-016,Fortis Industrial — Penang Plant,28 Lorong Kilang,Penang,Malaysia
+FAC-0071,SUP-016,Fortis Industrial — Shenzhen Plant,6 Export Processing Zone,Shenzhen,China
+FAC-0072,SUP-016,Fortis Industrial — Ningbo Plant,148 Export Processing Zone,Ningbo,China
+FAC-0073,SUP-016,Fortis Industrial — Tijuana Plant,355 Blvd. Industrial,Tijuana,Mexico
+FAC-0074,SUP-016,Fortis Industrial — Coimbatore Plant,233 Phase II Industrial Estate,Coimbatore,India
+FAC-0075,SUP-017,Sanhe Group — Rayong Plant,124 Industrial Estate Rd,Rayong,Thailand
+FAC-0076,SUP-017,Sanhe Group — Rayong Plant,264 Bangpakong Ind. Rd,Rayong,Thailand
+FAC-0077,SUP-018,Fortis Fabrication — Coimbatore Plant,137 MIDC Industrial Area,Coimbatore,India
+FAC-0078,SUP-018,Fortis Fabrication — Penang Plant,266 Jalan Perindustrian,Penang,Malaysia
+FAC-0079,SUP-018,Fortis Fabrication — Bekasi Plant,36 Jalan Raya Industri,Bekasi,Indonesia
+FAC-0080,SUP-018,Fortis Fabrication — Coimbatore Plant,12 Phase II Industrial Estate,Coimbatore,India
+FAC-0081,SUP-018,Fortis Fabrication — Penang Plant,56 Jalan Perindustrian,Penang,Malaysia
+FAC-0082,SUP-018,Fortis Fabrication — Gazipur Plant,79 Industrial Area Rd,Gazipur,Bangladesh
+FAC-0083,SUP-018,Fortis Fabrication — Noida Plant,71 MIDC Industrial Area,Noida,India
+FAC-0084,SUP-019,Everstar Fabrication — Katowice Plant,115 Ulica Przemyslowa,Katowice,Poland
+FAC-0085,SUP-019,Everstar Fabrication — Noida Plant,256 MIDC Industrial Area,Noida,India
+FAC-0086,SUP-019,Everstar Fabrication — Shenzhen Plant,428 Export Processing Zone,Shenzhen,China
+FAC-0087,SUP-019,Everstar Fabrication — Katowice Plant,107 Ulica Przemyslowa,Katowice,Poland
+FAC-0088,SUP-019,Everstar Fabrication — Cavite Plant,48 Industrial Park Rd,Cavite,Philippines
+FAC-0089,SUP-019,Everstar Fabrication — Coimbatore Plant,63 MIDC Industrial Area,Coimbatore,India
+FAC-0090,SUP-020,Nova Manufacturing — Ningbo Plant,122 Industrial Park Rd,Ningbo,China
+FAC-0091,SUP-020,Nova Manufacturing — Gazipur Plant,376 Export Processing Zone,Gazipur,Bangladesh
+FAC-0092,SUP-020,Nova Manufacturing — Noida Plant,75 Phase II Industrial Estate,Noida,India
+FAC-0093,SUP-020,Nova Manufacturing — Gazipur Plant,163 Export Processing Zone,Gazipur,Bangladesh
+FAC-0094,SUP-020,Nova Manufacturing — Gaziantep Plant,445 Fabrika Caddesi,Gaziantep,Turkey
+FAC-0095,SUP-020,Nova Manufacturing — Manaus Plant,281 Distrito Industrial,Manaus,Brazil
+FAC-0096,SUP-020,Nova Manufacturing — Gazipur Plant,111 Industrial Area Rd,Gazipur,Bangladesh
+FAC-0097,SUP-021,Sanhe Fabrication — Gazipur Plant,116 Export Processing Zone,Gazipur,Bangladesh
+FAC-0098,SUP-021,Sanhe Fabrication — Penang Plant,25 Jalan Perindustrian,Penang,Malaysia
+FAC-0099,SUP-021,Sanhe Fabrication — Bekasi Plant,447 Jalan Raya Industri,Bekasi,Indonesia
+FAC-0100,SUP-021,Sanhe Fabrication — Noida Plant,121 Phase II Industrial Estate,Noida,India
+FAC-0101,SUP-022,Lianfa Fabrication — Rayong Plant,275 Bangpakong Ind. Rd,Rayong,Thailand
+FAC-0102,SUP-022,Lianfa Fabrication — Penang Plant,454 Jalan Perindustrian,Penang,Malaysia
+FAC-0103,SUP-022,Lianfa Fabrication — Cavite Plant,456 Industrial Park Rd,Cavite,Philippines
+FAC-0104,SUP-022,Lianfa Fabrication — Bien Hoa Plant,376 Nam Son Ind. Ave,Bien Hoa,Vietnam
+FAC-0105,SUP-022,Lianfa Fabrication — Coimbatore Plant,366 Phase II Industrial Estate,Coimbatore,India
+FAC-0106,SUP-022,Lianfa Fabrication — Tijuana Plant,257 Blvd. Industrial,Tijuana,Mexico
+FAC-0107,SUP-023,Bao Sheng Industrial — Penang Plant,19 Jalan Perindustrian,Penang,Malaysia
+FAC-0108,SUP-023,Bao Sheng Industrial — Bien Hoa Plant,189 Industrial Park Rd,Bien Hoa,Vietnam
+FAC-0109,SUP-023,Bao Sheng Industrial — Coimbatore Plant,176 Phase II Industrial Estate,Coimbatore,India
+FAC-0110,SUP-023,Bao Sheng Industrial — Manaus Plant,105 Zona Industrial,Manaus,Brazil
+FAC-0111,SUP-024,Primero Fabrication — Shenzhen Plant,108 Export Processing Zone,Shenzhen,China
+FAC-0112,SUP-024,Primero Fabrication — Ningbo Plant,316 Export Processing Zone,Ningbo,China
+FAC-0113,SUP-024,Primero Fabrication — Coimbatore Plant,125 MIDC Industrial Area,Coimbatore,India
+FAC-0114,SUP-024,Primero Fabrication — Cavite Plant,222 Industrial Park Rd,Cavite,Philippines
+FAC-0115,SUP-024,Primero Fabrication — Rayong Plant,82 Bangpakong Ind. Rd,Rayong,Thailand
+FAC-0116,SUP-025,Trident Group — Ningbo Plant,160 Industrial Park Rd,Ningbo,China
+FAC-0117,SUP-025,Trident Group — Bekasi Plant,29 Jalan Perindustrian,Bekasi,Indonesia
+FAC-0118,SUP-026,Delta Manufacturing — Penang Plant,157 Jalan Perindustrian,Penang,Malaysia
+FAC-0119,SUP-026,Delta Manufacturing — Noida Plant,246 MIDC Industrial Area,Noida,India
+FAC-0120,SUP-026,Delta Manufacturing — Hai Phong Plant,36 Industrial Park Rd,Hai Phong,Vietnam
+FAC-0121,SUP-026,Delta Manufacturing — Katowice Plant,441 Ulica Fabryczna,Katowice,Poland
+FAC-0122,SUP-027,Trident Plastics — Tijuana Plant,386 Zona Industrial,Tijuana,Mexico
+FAC-0123,SUP-027,Trident Plastics — Tijuana Plant,368 Zona Industrial,Tijuana,Mexico
+FAC-0124,SUP-027,Trident Plastics — Shenzhen Plant,212 Industrial Park Rd,Shenzhen,China
+FAC-0125,SUP-027,Trident Plastics — Hai Phong Plant,78 Nam Son Ind. Ave,Hai Phong,Vietnam
+FAC-0126,SUP-027,Trident Plastics — Noida Plant,466 MIDC Industrial Area,Noida,India
+FAC-0127,SUP-027,Trident Plastics — Penang Plant,434 Jalan Perindustrian,Penang,Malaysia
+FAC-0128,SUP-027,Trident Plastics — Bekasi Plant,474 Jalan Raya Industri,Bekasi,Indonesia
+FAC-0129,SUP-028,Lianfa Group — Rayong Plant,431 Industrial Estate Rd,Rayong,Thailand
+FAC-0130,SUP-028,Lianfa Group — Cavite Plant,332 Industrial Park Rd,Cavite,Philippines
+FAC-0131,SUP-028,Lianfa Group — Cavite Plant,,,Philippines
+FAC-0132,SUP-028,Lianfa Group — Ningbo Plant,219 Industrial Park Rd,Ningbo,China
+FAC-0133,SUP-028,Lianfa Group — Manaus Plant,419 Distrito Industrial,Manaus,Brazil
+FAC-0134,SUP-028,Lianfa Group — Coimbatore Plant,316 MIDC Industrial Area,Coimbatore,India
+FAC-0135,SUP-028,Lianfa Group — Gazipur Plant,,,Bangladesh
+FAC-0136,SUP-029,Zenith Components — Rayong Plant,131 Industrial Estate Rd,Rayong,Thailand
+FAC-0137,SUP-029,Zenith Components — Katowice Plant,58 Ulica Przemyslowa,Katowice,Poland
+FAC-0138,SUP-029,Zenith Components — Rayong Plant,471 Industrial Estate Rd,Rayong,Thailand
+FAC-0139,SUP-029,Zenith Components — Bekasi Plant,452 Jalan Perindustrian,Bekasi,Indonesia
+FAC-0140,SUP-029,Zenith Components — Manaus Plant,367 Zona Industrial,Manaus,Brazil
+FAC-0141,SUP-029,Zenith Components — Noida Plant,260 MIDC Industrial Area,Noida,India
+FAC-0142,SUP-030,Primero Plastics — Penang Plant,154 Lorong Kilang,Penang,Malaysia
+FAC-0143,SUP-030,Primero Plastics — Dongguan Plant,437 Industrial Park Rd,Dongguan,China
+FAC-0144,SUP-031,Golden Lotus Industrial — Bekasi Plant,87 Jalan Perindustrian,Bekasi,Indonesia
+FAC-0145,SUP-031,Golden Lotus Industrial — Hai Phong Plant,301 Nam Son Ind. Ave,Hai Phong,Vietnam
+FAC-0146,SUP-032,Fortis Components — Shenzhen Plant,225 Industrial Park Rd,Shenzhen,China
+FAC-0147,SUP-032,Fortis Components — Penang Plant,463 Lorong Kilang,Penang,Malaysia
+FAC-0148,SUP-032,Fortis Components — Manaus Plant,453 Zona Industrial,Manaus,Brazil
+FAC-0149,SUP-032,Fortis Components — Bekasi Plant,12 Jalan Raya Industri,Bekasi,Indonesia
+FAC-0150,SUP-032,Fortis Components — Bien Hoa Plant,43 Nam Son Ind. Ave,Bien Hoa,Vietnam
+FAC-0151,SUP-032,Fortis Components — Noida Plant,239 Phase II Industrial Estate,Noida,India
+FAC-0152,SUP-033,Anhui Group — Manaus Plant,214 Distrito Industrial,Manaus,Brazil
+FAC-0153,SUP-033,Anhui Group — Cavite Plant,99 Industrial Park Rd,Cavite,Philippines
+FAC-0154,SUP-033,Anhui Group — Shenzhen Plant,379 Industrial Park Rd,Shenzhen,China
+FAC-0155,SUP-033,Anhui Group — Manaus Plant,85 Zona Industrial,Manaus,Brazil
+FAC-0156,SUP-033,Anhui Group — Ningbo Plant,438 Industrial Park Rd,Ningbo,China
+FAC-0157,SUP-033,Anhui Group — Penang Plant,194 Lorong Kilang,Penang,Malaysia
+FAC-0158,SUP-033,Anhui Group — Hai Phong Plant,440 Nam Son Ind. Ave,Hai Phong,Vietnam
+FAC-0159,SUP-034,Zenith Precision — Noida Plant,24 Phase II Industrial Estate,Noida,India
+FAC-0160,SUP-034,Zenith Precision — Coimbatore Plant,301 Phase II Industrial Estate,Coimbatore,India
+FAC-0161,SUP-034,Zenith Precision — Tijuana Plant,477 Blvd. Industrial,Tijuana,Mexico
+FAC-0162,SUP-034,Zenith Precision — Gazipur Plant,181 Export Processing Zone,Gazipur,Bangladesh
+FAC-0163,SUP-035,Sanhe Precision — Cavite Plant,114 Industrial Park Rd,Cavite,Philippines
+FAC-0164,SUP-035,Sanhe Precision — Noida Plant,329 Phase II Industrial Estate,Noida,India
+FAC-0165,SUP-035,Sanhe Precision — Manaus Plant,332 Distrito Industrial,Manaus,Brazil
+FAC-0166,SUP-035,Sanhe Precision — Gaziantep Plant,244 Fabrika Caddesi,Gaziantep,Turkey
+FAC-0167,SUP-035,Sanhe Precision — Coimbatore Plant,4 MIDC Industrial Area,Coimbatore,India
+FAC-0168,SUP-036,Sanhe Manufacturing — Bekasi Plant,163 Jalan Perindustrian,Bekasi,Indonesia
+FAC-0169,SUP-036,Sanhe Manufacturing — Hai Phong Plant,64 Nam Son Ind. Ave,Hai Phong,Vietnam
+FAC-0170,SUP-036,Sanhe Manufacturing — Ningbo Plant,447 Industrial Park Rd,Ningbo,China
+FAC-0171,SUP-036,Sanhe Manufacturing — Bekasi Plant,7 Jalan Raya Industri,Bekasi,Indonesia
+FAC-0172,SUP-037,Everstar Components — Ningbo Plant,55 Industrial Park Rd,Ningbo,China
+FAC-0173,SUP-037,Everstar Components — Cavite Plant,100 Cavite Economic Zone,Cavite,Philippines
+FAC-0174,SUP-037,Everstar Components — Katowice Plant,200 Ulica Fabryczna,Katowice,Poland
+FAC-0175,SUP-037,Everstar Components — Cavite Plant,127 Industrial Park Rd,Cavite,Philippines
+FAC-0176,SUP-037,Everstar Components — Coimbatore Plant,373 Phase II Industrial Estate,Coimbatore,India
+FAC-0177,SUP-037,Everstar Components — Bien Hoa Plant,123 Nam Son Ind. Ave,Bien Hoa,Vietnam
+FAC-0178,SUP-037,Everstar Components — Coimbatore Plant,19 Phase II Industrial Estate,Coimbatore,India
+FAC-0179,SUP-039,Keyuan Manufacturing — Dongguan Plant,223 Industrial Park Rd,Dongguan,China
+FAC-0180,SUP-039,Keyuan Manufacturing — Rayong Plant,2 Industrial Estate Rd,Rayong,Thailand
+FAC-0181,SUP-039,Keyuan Manufacturing — Bien Hoa Plant,30 Industrial Park Rd,Bien Hoa,Vietnam
+FAC-0182,SUP-039,Keyuan Manufacturing — Gaziantep Plant,415 Organize Sanayi Blv.,Gaziantep,Turkey
+FAC-0183,SUP-039,Keyuan Manufacturing — Noida Plant,244 Phase II Industrial Estate,Noida,India
+FAC-0184,SUP-039,Keyuan Manufacturing — Tijuana Plant,63 Zona Industrial,Tijuana,Mexico
+FAC-0185,SUP-040,Anhui Manufacturing — Dongguan Plant,139 Export Processing Zone,Dongguan,China
+FAC-0186,SUP-040,Anhui Manufacturing — Tijuana Plant,232 Zona Industrial,Tijuana,Mexico
+FAC-0187,SUP-040,Anhui Manufacturing — Bekasi Plant,152 Jalan Perindustrian,Bekasi,Indonesia
+FAC-0188,SUP-041,Aequs Group — Hai Phong Plant,336 Industrial Park Rd,Hai Phong,Vietnam
+FAC-0189,SUP-041,Aequs Group — Cavite Plant,264 Cavite Economic Zone,Cavite,Philippines
+FAC-0190,SUP-041,Aequs Group — Katowice Plant,430 Ulica Fabryczna,Katowice,Poland
+FAC-0191,SUP-041,Aequs Group — Rayong Plant,47 Bangpakong Ind. Rd,Rayong,Thailand
+FAC-0192,SUP-041,Aequs Group — Gaziantep Plant,208 Organize Sanayi Blv.,Gaziantep,Turkey
+FAC-0193,SUP-041,Aequs Group — Bien Hoa Plant,252 Industrial Park Rd,Bien Hoa,Vietnam
+FAC-0194,SUP-041,Aequs Group — Shenzhen Plant,446 Industrial Park Rd,Shenzhen,China
+FAC-0195,SUP-042,Pacific Group — Coimbatore Plant,197 MIDC Industrial Area,Coimbatore,India
+FAC-0196,SUP-042,Pacific Group — Dongguan Plant,243 Export Processing Zone,Dongguan,China
+FAC-0197,SUP-042,Pacific Group — Ningbo Plant,,,China
+FAC-0198,SUP-042,Pacific Group — Cavite Plant,223 Industrial Park Rd,Cavite,Philippines
+FAC-0199,SUP-042,Pacific Group — Noida Plant,244 MIDC Industrial Area,Noida,India
+FAC-0200,SUP-043,Aequs Fabrication — Tijuana Plant,141 Zona Industrial,Tijuana,Mexico
+FAC-0201,SUP-043,Aequs Fabrication — Cavite Plant,87 Cavite Economic Zone,Cavite,Philippines
+FAC-0202,SUP-044,Anhui Plastics — Manaus Plant,159 Distrito Industrial,Manaus,Brazil
+FAC-0203,SUP-044,Anhui Plastics — Cavite Plant,101 Cavite Economic Zone,Cavite,Philippines
+FAC-0204,SUP-044,Anhui Plastics — Katowice Plant,67 Ulica Przemyslowa,Katowice,Poland
+FAC-0205,SUP-044,Anhui Plastics — Bekasi Plant,289 Jalan Raya Industri,Bekasi,Indonesia
+FAC-0206,SUP-044,Anhui Plastics — Tijuana Plant,349 Blvd. Industrial,Tijuana,Mexico
+FAC-0207,SUP-044,Anhui Plastics — Katowice Plant,151 Ulica Przemyslowa,Katowice,Poland
+FAC-0208,SUP-044,Anhui Plastics — Manaus Plant,35 Zona Industrial,Manaus,Brazil
+FAC-0209,SUP-045,Pacific Industrial — Dongguan Plant,296 Export Processing Zone,Dongguan,China
+FAC-0210,SUP-045,Pacific Industrial — Ningbo Plant,101 Export Processing Zone,Ningbo,China
+FAC-0211,SUP-045,Pacific Industrial — Hai Phong Plant,63 Nam Son Ind. Ave,Hai Phong,Vietnam
+FAC-0212,SUP-046,Primero Components — Rayong Plant,383 Bangpakong Ind. Rd,Rayong,Thailand
+FAC-0213,SUP-046,Primero Components — Gazipur Plant,111 Export Processing Zone,Gazipur,Bangladesh
+FAC-0214,SUP-046,Primero Components — Ningbo Plant,320 Industrial Park Rd,Ningbo,China
+FAC-0215,SUP-047,Bao Sheng Group — Noida Plant,433 Phase II Industrial Estate,Noida,India
+FAC-0216,SUP-047,Bao Sheng Group — Gazipur Plant,336 Export Processing Zone,Gazipur,Bangladesh
+FAC-0217,SUP-047,Bao Sheng Group — Bien Hoa Plant,156 Industrial Park Rd,Bien Hoa,Vietnam
+FAC-0218,SUP-047,Bao Sheng Group — Dongguan Plant,240 Export Processing Zone,Dongguan,China
+FAC-0219,SUP-047,Bao Sheng Group — Gaziantep Plant,440 Organize Sanayi Blv.,Gaziantep,Turkey
+FAC-0220,SUP-048,Zenith Fabrication — Hai Phong Plant,96 Industrial Park Rd,Hai Phong,Vietnam
+FAC-0221,SUP-048,Zenith Fabrication — Dongguan Plant,183 Industrial Park Rd,Dongguan,China
+FAC-0222,SUP-048,Zenith Fabrication — Rayong Plant,351 Bangpakong Ind. Rd,Rayong,Thailand
+FAC-0223,SUP-049,Sanhe Industrial — Dongguan Plant,322 Industrial Park Rd,Dongguan,China
+FAC-0224,SUP-049,Sanhe Industrial — Shenzhen Plant,141 Industrial Park Rd,Shenzhen,China
+FAC-0225,SUP-049,Sanhe Industrial — Gazipur Plant,23 Industrial Area Rd,Gazipur,Bangladesh
+FAC-0226,SUP-049,Sanhe Industrial — Penang Plant,224 Lorong Kilang,Penang,Malaysia
+FAC-0227,SUP-050,Bao Sheng Plastics — Cavite Plant,351 Cavite Economic Zone,Cavite,Philippines
+FAC-0228,SUP-050,Bao Sheng Plastics — Bekasi Plant,273 Jalan Perindustrian,Bekasi,Indonesia
+FAC-0229,SUP-050,Bao Sheng Plastics — Noida Plant,111 MIDC Industrial Area,Noida,India
+FAC-0230,SUP-050,Bao Sheng Plastics — Coimbatore Plant,127 Phase II Industrial Estate,Coimbatore,India
+FAC-0231,SUP-050,Bao Sheng Plastics — Coimbatore Plant,40 Phase II Industrial Estate,Coimbatore,India
+FAC-0232,SUP-050,Bao Sheng Plastics — Bekasi Plant,391 Jalan Raya Industri,Bekasi,Indonesia

@@ -1,0 +1,557 @@
+<title>FairToy Exposure Explained</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column; the supply-chain simulator breaks out wider, laid out
+   left→right exactly as the trace reads: toy → part → factory → supplier. */
+:root {
+  --bg: #f2f4f6;
+  --surface: #ffffff;
+  --ink: #15212b;
+  --muted: #5a6a77;
+  --line: #d5dde4;
+  --accent: #1f4e79;
+  --accent-soft: #e3ecf5;
+  --confirmed: #b8322a; --confirmed-bg: #fbe9e7;
+  --potential: #c0631a; --potential-bg: #fdeedd;
+  --risk: #8f7000;      --risk-bg: #fbf3d2;
+  --clean: #2c7a4d;     --clean-bg: #e4f3ea;
+  --font-display: "Unbounded", "Arial Black", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1418; --surface: #161f26; --ink: #e3e9ee; --muted: #8e9fac; --line: #29353f;
+    --accent: #86b5e3; --accent-soft: #1b2b3a;
+    --confirmed: #ff8b80; --confirmed-bg: #3a1c1a;
+    --potential: #ffb066; --potential-bg: #382614;
+    --risk: #e6c75a;      --risk-bg: #332c12;
+    --clean: #6fd29a;     --clean-bg: #14301f;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1418; --surface: #161f26; --ink: #e3e9ee; --muted: #8e9fac; --line: #29353f;
+  --accent: #86b5e3; --accent-soft: #1b2b3a;
+  --confirmed: #ff8b80; --confirmed-bg: #3a1c1a;
+  --potential: #ffb066; --potential-bg: #382614;
+  --risk: #e6c75a;      --risk-bg: #332c12;
+  --clean: #6fd29a;     --clean-bg: #14301f;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 1080px; margin: 0 auto; padding-block: 48px 96px; display: grid; gap: 72px; }
+.prose { max-width: 68ch; }
+h1, h2 { font-family: var(--font-display); font-weight: 700; text-wrap: balance; letter-spacing: -0.01em; margin: 0; }
+h1 { font-size: clamp(30px, 5vw, 50px); line-height: 1.08; }
+h2 { font-size: clamp(21px, 2.6vw, 28px); line-height: 1.2; }
+h3 { font-size: 16px; margin: 0; }
+p { margin: 0; }
+.eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+.lead { font-size: 19px; color: var(--muted); max-width: 60ch; }
+.muted { color: var(--muted); }
+.mono, code { font-family: var(--font-mono); font-size: .88em; }
+code { background: var(--accent-soft); padding: 1px 5px; border-radius: 4px; }
+section { display: grid; gap: 20px; }
+
+/* hero */
+.hero { display: grid; gap: 18px; }
+.chain { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 14px; }
+.chain span { border: 1px solid var(--line); background: var(--surface); padding: 4px 10px; border-radius: 4px; }
+.chain i { color: var(--muted); font-style: normal; }
+.chain span.hot { border-color: var(--confirmed); color: var(--confirmed); background: var(--confirmed-bg); }
+
+/* status pills */
+.pill { display: inline-block; font-family: var(--font-mono); font-size: 11px; font-weight: 500; padding: 1px 7px; border-radius: 999px; white-space: nowrap; border: 1px solid transparent; }
+.s-confirmed, .s-flagged { color: var(--confirmed); background: var(--confirmed-bg); border-color: color-mix(in srgb, var(--confirmed) 35%, transparent); }
+.s-potential { color: var(--potential); background: var(--potential-bg); border-color: color-mix(in srgb, var(--potential) 35%, transparent); }
+.s-supplier_risk { color: var(--risk); background: var(--risk-bg); border-color: color-mix(in srgb, var(--risk) 35%, transparent); }
+.s-clean { color: var(--clean); background: var(--clean-bg); }
+
+/* simulator */
+.sim { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 20px; display: grid; gap: 16px; }
+.sim-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; align-items: baseline; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px; }
+.scroll-x { overflow-x: auto; }
+.graph { position: relative; min-width: 760px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 56px; padding: 4px 0; }
+.graph svg { position: absolute; inset: 0; pointer-events: none; overflow: visible; }
+.col { display: grid; align-content: space-around; gap: 12px; position: relative; z-index: 1; }
+.col-title { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.node {
+  display: grid; gap: 4px; text-align: left; font: inherit; font-size: 13px; line-height: 1.35;
+  background: var(--surface); color: var(--ink);
+  border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px;
+  transition: opacity .2s, border-color .2s, box-shadow .2s;
+}
+.node .id { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+.node .row { display: flex; justify-content: space-between; align-items: center; gap: 6px; }
+button.node { cursor: pointer; }
+button.node:focus-visible, .seg button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.node.sel { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-soft); }
+.node.dim { opacity: .38; }
+.node.pick { border-style: dashed; border-color: var(--accent); }
+.node.st-confirmed, .node.st-flagged { border-left: 3px solid var(--confirmed); }
+.node.st-potential { border-left: 3px solid var(--potential); }
+.node.st-supplier_risk { border-left: 3px solid var(--risk); }
+.node.multi { outline: 2px dashed var(--accent); outline-offset: 3px; }
+.multi-tag { font-family: var(--font-mono); font-size: 11px; color: var(--accent); background: var(--accent-soft); border-radius: 4px; padding: 2px 6px; }
+.callout { display: flex; gap: 10px; align-items: flex-start; background: var(--accent-soft); border-radius: 8px; padding: 10px 14px; font-size: 14px; }
+.callout b { color: var(--accent); }
+pre.csv { margin: 0; font-family: var(--font-mono); font-size: 12px; background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; overflow-x: auto; line-height: 1.6; }
+pre.csv mark { background: var(--accent-soft); color: var(--accent); padding: 0 2px; border-radius: 3px; }
+.seg { display: flex; border: 1px solid var(--line); border-radius: 5px; overflow: hidden; margin-top: 4px; }
+.seg button { flex: 1; font: inherit; font-size: 11px; padding: 3px 4px; border: 0; background: transparent; color: var(--muted); cursor: pointer; }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--surface); }
+.hint { font-size: 11px; color: var(--potential); }
+path.edge { fill: none; stroke: var(--line); stroke-width: 1.5; transition: stroke .2s, opacity .2s; }
+path.edge.e-flagged, path.edge.e-confirmed { stroke: var(--confirmed); }
+path.edge.e-potential { stroke: var(--potential); }
+path.edge.e-supplier_risk { stroke: var(--risk); }
+path.edge.on { stroke-width: 2.5; }
+path.edge.off { opacity: .25; }
+.trace { border-top: 1px solid var(--line); padding-top: 14px; display: grid; gap: 8px; }
+.trace ol { margin: 0; padding-left: 20px; display: grid; gap: 6px; font-size: 14px; }
+.trace li .arrow { color: var(--muted); padding: 0 4px; }
+.sim-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.btn { font: inherit; font-size: 13px; padding: 6px 12px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
+.btn:hover { border-color: var(--accent); }
+
+/* rules */
+.rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px; display: grid; gap: 12px; align-content: start; min-width: 0; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+tr:last-child td { border-bottom: 0; }
+.formula { font-family: var(--font-mono); font-size: 14px; background: var(--accent-soft); border-radius: 6px; padding: 10px 12px; }
+
+/* architecture */
+.arch { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; counter-reset: none; }
+.box { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px; display: grid; gap: 6px; align-content: start; min-width: 0; }
+.box .file { font-family: var(--font-mono); font-size: 12px; color: var(--accent); }
+.box.mut { border-color: var(--confirmed); }
+.box.mut .file { color: var(--confirmed); }
+.lane-label { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+.flow { display: grid; gap: 10px; }
+.flow-row { display: flex; flex-wrap: wrap; align-items: stretch; gap: 10px; }
+.flow-row .box { flex: 1 1 180px; }
+.flow-arrow { align-self: center; color: var(--muted); font-family: var(--font-mono); }
+
+/* steps */
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; counter-reset: step; }
+.steps li { counter-increment: step; display: grid; grid-template-columns: 44px 1fr; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.steps li::before { content: counter(step); font-family: var(--font-display); font-size: 18px; color: var(--accent); }
+.steps li:last-child { border-bottom: 0; }
+.steps .who { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+
+/* edge cases */
+.cases { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+.case { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px; display: grid; gap: 6px; align-content: start; min-width: 0; font-size: 14px; }
+.case .tag { font-family: var(--font-mono); font-size: 11px; color: var(--accent); }
+.case .fix { color: var(--muted); }
+
+.note { border-left: 3px solid var(--accent); padding: 4px 0 4px 14px; color: var(--muted); max-width: 68ch; }
+footer { color: var(--muted); font-size: 14px; }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+@media (max-width: 520px) {
+  .wrap { padding-block: 28px 64px; gap: 56px; }
+  .sim { padding: 14px; }
+  .steps li { grid-template-columns: 30px 1fr; }
+}
+</style>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="eyebrow">FairToy · child-labour exposure</div>
+    <h1>Один флаг на поставщике показывает все затронутые игрушки</h1>
+    <p class="lead">Финишер отмечает поставщика или его фабрику. Приложение проходит цепочку в обратную сторону и для каждой игрушки показывает, затронута ли она и через какую деталь.</p>
+    <div class="chain" aria-label="Цепочка трассировки">
+      <span>Игрушка</span><i>→</i><span>Деталь × кол-во</span><i>→</i><span>Фабрика</span><i>→</i><span class="hot">Поставщик ⚑</span>
+    </div>
+  </header>
+
+  <section aria-labelledby="sim-h">
+    <div class="prose" style="display:grid;gap:10px">
+      <div class="eyebrow">Попробуйте</div>
+      <h2 id="sim-h">Живая модель цепочки</h2>
+      <p class="muted"><b>BOM</b> (Bill of Materials, спецификация) — это список деталей игрушки с количеством, файл <code>bill_of_materials.csv</code>. В BOM указана только деталь, без источника. Поэтому для детали с двумя поставщиками нельзя сказать, от кого она пришла.</p>
+      <p class="muted">Ниже придуманный учебный каталог: поставщики A/B/C, детали P-01…P-05 и игрушки не из реальных данных. Правила те же, что в <code>exposure.py</code>. Переключите флаг у поставщика. В режиме «фабрики» нажимайте на фабрики, чтобы включить их во флаг. Нажмите на игрушку, чтобы увидеть её трассу.</p>
+    </div>
+
+    <div class="sim">
+      <div class="sim-head">
+        <div class="legend">
+          <span class="pill s-confirmed">confirmed</span>
+          <span class="pill s-potential">potential</span>
+          <span class="pill s-supplier_risk">supplier_risk</span>
+          <span class="pill s-clean">clean</span>
+        </div>
+        <div class="sim-actions">
+          <button class="btn" id="preset-scoped" type="button">Флаг на одну фабрику</button>
+          <button class="btn" id="preset-whole" type="button">Весь поставщик</button>
+          <button class="btn" id="preset-reset" type="button">Снять все флаги</button>
+        </div>
+      </div>
+
+      <div class="callout">
+        <span><b>Деталь с несколькими источниками.</b> <b>LED-модуль P-03</b> (обведён пунктиром) делают две фабрики разных поставщиков: <span class="mono">FAC-A1</span> (поставщик A) и <span class="mono">FAC-B1</span> (поставщик B). Робот содержит P-03, но BOM не говорит, с какой фабрики он пришёл. Если флагнута только A, статус робота <span class="pill s-potential">potential</span>. Если флагнуть ещё и B, статус станет <span class="pill s-confirmed">confirmed</span>.</span>
+      </div>
+
+      <div class="scroll-x">
+        <div class="graph" id="graph">
+          <svg id="edges" aria-hidden="true"></svg>
+          <div class="col" id="col-toys"><div class="col-title">Игрушки</div></div>
+          <div class="col" id="col-parts"><div class="col-title">Детали</div></div>
+          <div class="col" id="col-facs"><div class="col-title">Фабрики</div></div>
+          <div class="col" id="col-sups"><div class="col-title">Поставщики</div></div>
+        </div>
+      </div>
+
+      <div class="trace" id="trace" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="rules-h">
+    <div class="prose" style="display:grid;gap:10px">
+      <div class="eyebrow">Правила</div>
+      <h2 id="rules-h">Три уровня статуса</h2>
+      <p class="muted">Статус считается снизу вверх: источник, потом деталь, потом игрушка. Это чистая функция <code>evaluate(catalog, active_flags)</code>: без побочных эффектов, полностью покрыта тестами.</p>
+    </div>
+    <div class="rules">
+      <div class="card">
+        <h3>1. Источник детали</h3>
+        <p class="muted" style="font-size:14px">Пара «деталь + фабрика». Поставщик определяется по фабрике.</p>
+        <table>
+          <thead><tr><th>Статус</th><th>Когда</th></tr></thead>
+          <tbody>
+            <tr><td><span class="pill s-flagged">flagged</span></td><td>флаг на весь поставщик или на эту фабрику</td></tr>
+            <tr><td><span class="pill s-supplier_risk">supplier_risk</span></td><td>флаг на другие фабрики того же поставщика</td></tr>
+            <tr><td><span class="pill s-clean">clean</span></td><td>у поставщика нет активного флага</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h3>2. Деталь</h3>
+        <p class="muted" style="font-size:14px">У детали <b>n</b> источников, из них <b>f</b> флагнутых. BOM не говорит, какой источник использован.</p>
+        <table>
+          <thead><tr><th>Статус</th><th>Когда</th></tr></thead>
+          <tbody>
+            <tr><td><span class="pill s-confirmed">confirmed</span></td><td><span class="mono">f = n</span>: какой источник ни возьми, он флагнут</td></tr>
+            <tr><td><span class="pill s-potential">potential</span></td><td><span class="mono">0 &lt; f &lt; n</span>: возможно, деталь пришла от флагнутого</td></tr>
+            <tr><td><span class="pill s-supplier_risk">supplier_risk</span></td><td><span class="mono">f = 0</span>, но есть источник supplier_risk</td></tr>
+            <tr><td><span class="pill s-clean">clean</span></td><td>иначе</td></tr>
+          </tbody>
+        </table>
+        <p class="muted" style="font-size:14px">Так это выглядит в реальном <code>parts.csv</code>: одна деталь, две строки. Таких деталей 22.</p>
+<pre class="csv">part_id,  part_name, supplier_id, factory_id, unit_cost_usd
+<mark>PRT-0235</mark>, LED array, SUP-022,     FAC-0104,   4.4
+<mark>PRT-0235</mark>, LED array, SUP-002,     FAC-0008,   4.18</pre>
+      </div>
+      <div class="card">
+        <h3>3. Игрушка</h3>
+        <p class="muted" style="font-size:14px">Худший статус среди деталей её BOM.</p>
+        <div class="formula">toy = max(part₁, part₂, …)<br>confirmed › potential › supplier_risk › clean</div>
+        <p class="muted" style="font-size:14px">Для оценки экспозиции к статусу добавляются деньги: <span class="mono">revenue = price × units_per_year</span> по каждому листингу финишера.</p>
+      </div>
+    </div>
+    <p class="note">Почему флаг ставится на поставщика с уточнением по фабрикам. CSDDD и немецкий LkSG возлагают due diligence на юрлицо-контрагента. Forced Labour Regulation запрещает продукт с конкретного производства. Поэтому нужны оба уровня, и по умолчанию риском считается весь поставщик.</p>
+  </section>
+
+  <section aria-labelledby="arch-h">
+    <div class="prose" style="display:grid;gap:10px">
+      <div class="eyebrow">Архитектура</div>
+      <h2 id="arch-h">Каталог только для чтения, флаги в SQLite</h2>
+      <p class="muted">Данные из CSV не меняются, поэтому при старте каталог загружается в память и больше не трогается. Флаги — единственное, что меняется. Они хранятся в SQLite на Docker volume и не пропадают при перезапуске.</p>
+    </div>
+
+    <div class="flow">
+      <div class="lane-label">Только чтение: при каждом старте строится заново из CSV</div>
+      <div class="flow-row">
+        <div class="box"><span class="file">data/*.csv</span><b>6 файлов</b><span class="muted" style="font-size:14px">Плоские и с дублями. Источник правды.</span></div>
+        <span class="flow-arrow">→</span>
+        <div class="box"><span class="file">ingest.py</span><b>Проверка и нормализация</b><span class="muted" style="font-size:14px">trim, пустое → null, проверка ссылок и чисел. Каждая проблема записывается как issue.</span></div>
+        <span class="flow-arrow">→</span>
+        <div class="box"><span class="file">catalog.py</span><b>Каталог в памяти</b><span class="muted" style="font-size:14px">Неизменяемые dataclasses и индексы по детали, поставщику и игрушке.</span></div>
+      </div>
+      <div class="lane-label">Изменяемое состояние</div>
+      <div class="flow-row">
+        <div class="box mut"><span class="file">flags.py · SQLite</span><b>supplier_flag</b><span class="muted" style="font-size:14px">Partial unique index: у поставщика не больше одного активного флага. Ограничение держит база, гонки невозможны.</span></div>
+        <span class="flow-arrow">→</span>
+        <div class="box"><span class="file">exposure.py</span><b>evaluate(catalog, flags)</b><span class="muted" style="font-size:14px">Чистая функция. На 10&nbsp;463 строках BOM отвечает за ~4&nbsp;мс.</span></div>
+        <span class="flow-arrow">→</span>
+        <div class="box"><span class="file">api.py · FastAPI</span><b>/api/…</b><span class="muted" style="font-size:14px">Тонкий слой: валидация (404/409/422) и форма ответа.</span></div>
+        <span class="flow-arrow">→</span>
+        <div class="box"><span class="file">frontend · React</span><b>Кэш TanStack Query</b><span class="muted" style="font-size:14px">Выбранный финишер и фильтры живут в URL. Redux не нужен.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="flow-h">
+    <div class="prose" style="display:grid;gap:10px">
+      <div class="eyebrow">Один клик</div>
+      <h2 id="flow-h">Что происходит при нажатии «Flag supplier»</h2>
+    </div>
+    <ol class="steps">
+      <li><div><div class="who">браузер</div>Форма отправляет <code>POST /api/suppliers/SUP-002/flags</code> с <code>{factory_ids: ["FAC-0008"], reason, flagged_by}</code>.</div></li>
+      <li><div><div class="who">nginx</div>Проксирует <code>/api</code> в контейнер api. Источник один, поэтому CORS не нужен.</div></li>
+      <li><div><div class="who">api.py</div>Проверяет запрос: поставщик существует (иначе 404), фабрики принадлежат ему и не повторяются (иначе 422), финишер известен (иначе 422).</div></li>
+      <li><div><div class="who">flags.py</div><code>INSERT</code>. Если у поставщика уже есть активный флаг, unique index бросает IntegrityError, и API отвечает 409.</div></li>
+      <li><div><div class="who">браузер</div>Получает 201 и сбрасывает кэш: от набора флагов зависит каждый экран.</div></li>
+      <li><div><div class="who">api.py</div>Обрабатывает новые GET: <code>evaluate(catalog, active_flags)</code> пересчитывает статусы источников, деталей и игрушек.</div></li>
+      <li><div><div class="who">UI</div>Показывает новые KPI, список затронутых игрушек и трассы с указанием флагнутой фабрики.</div></li>
+    </ol>
+  </section>
+
+  <section aria-labelledby="edge-h">
+    <div class="prose" style="display:grid;gap:10px">
+      <div class="eyebrow">Edge cases</div>
+      <h2 id="edge-h">Что в данных неровно и как это обработано</h2>
+    </div>
+    <div class="cases">
+      <div class="case"><span class="tag">D1 · 22 детали</span><b>У одного part_id два поставщика</b><span class="fix">Это деталь с несколькими источниками. Если флагнута часть источников, статус potential, и показывается «чистая» альтернатива.</span></div>
+      <div class="case"><span class="tag">D2 · 5 игрушек</span><b>У одного toy_id два финишера</b><span class="fix">Это общий продукт: BOM общий, цена и объём у каждого финишера свои. Листинг хранится по ключу (toy_id, finisher_id).</span></div>
+      <div class="case"><span class="tag">D3 · SUP-038</span><b>Поставщик без фабрик</b><span class="fix">Его можно флагнуть, экспозиция будет нулевой. Флаг на фабрики для него вернёт 422.</span></div>
+      <div class="case"><span class="tag">D4 · 26 названий, 53 фабрики</span><b>Одинаковые названия фабрик</b><span class="fix">Рядом с названием всегда показывается id: «Rayong Plant» FAC-0075 и FAC-0076.</span></div>
+      <div class="case"><span class="tag">D5 · 6 фабрик</span><b>Нет адреса или города</b><span class="fix">Хранится null, в UI выводится «location unknown», в отчёте info.</span></div>
+      <div class="case"><span class="tag">parts.supplier_id</span><b>Лишняя колонка</b><span class="fix">Поставщик определяется по фабрике. Если колонка расходится с фабрикой, пишется warning, приоритет у фабрики.</span></div>
+      <div class="case"><span class="tag">re-import</span><b>Флаг на исчезнувшего поставщика</b><span class="fix">Флаг не удаляется, а попадает в отчёт Data quality как orphan_flag.</span></div>
+      <div class="case"><span class="tag">lifecycle</span><b>Изменить охват флага</b><span class="fix">Снять флаг и поставить новый. История и аудит остаются честными.</span></div>
+      <div class="case"><span class="tag">ingest</span><b>Битые строки</b><span class="fix">Нечисловые значения, кол-во ≤ 0, неизвестные ссылки и дубли: строка пропускается или берётся первая, причина записывается.</span></div>
+    </div>
+  </section>
+
+  <footer>Покрыто 78 тестами: правила статусов, каждое правило загрузки, каждая ошибка API, сквозной прогон на реальных данных. Запуск: <code>docker compose up</code> → localhost:8080.</footer>
+</div>
+
+<script>
+(() => {
+  // --- illustrative catalog (same shape as the real one) -------------------
+  const suppliers = [
+    { id: 'SUP-A', name: 'Поставщик A', facs: ['FAC-A1', 'FAC-A2'] },
+    { id: 'SUP-B', name: 'Поставщик B', facs: ['FAC-B1'] },
+    { id: 'SUP-C', name: 'Поставщик C', facs: ['FAC-C1'] },
+  ];
+  const factories = {
+    'FAC-A1': { sup: 'SUP-A', where: 'Bien Hoa, Вьетнам' },
+    'FAC-A2': { sup: 'SUP-A', where: 'Rayong, Таиланд' },
+    'FAC-B1': { sup: 'SUP-B', where: 'Gazipur, Бангладеш' },
+    'FAC-C1': { sup: 'SUP-C', where: 'Tijuana, Мексика' },
+  };
+  const parts = {
+    'P-01': { name: 'Корпус', src: ['FAC-A1'] },
+    'P-02': { name: 'Колёса', src: ['FAC-A2'] },
+    'P-03': { name: 'LED-модуль', src: ['FAC-A1', 'FAC-B1'] },
+    'P-04': { name: 'Крепёж', src: ['FAC-C1'] },
+    'P-05': { name: 'Наклейка', src: ['FAC-B1'] },
+  };
+  const toys = {
+    'T-01': { name: 'Rally Car', bom: [['P-01', 2], ['P-04', 8]], sold: 'FIN-1, FIN-2' },
+    'T-02': { name: 'Robot', bom: [['P-03', 1], ['P-05', 2]], sold: 'FIN-1' },
+    'T-03': { name: 'Playhouse', bom: [['P-02', 4], ['P-04', 12]], sold: 'FIN-1' },
+    'T-04': { name: 'Kite', bom: [['P-05', 1]], sold: 'FIN-2' },
+  };
+  const SEV = { clean: 0, supplier_risk: 1, potential: 2, confirmed: 3 };
+
+  // --- state ------------------------------------------------------------------
+  let flags = {};          // supId -> { mode: 'whole' | 'factories', facs: Set }
+  let selected = 'T-02';
+  const presetScoped = () => { flags = { 'SUP-A': { mode: 'factories', facs: new Set(['FAC-A1']) } }; selected = 'T-02'; };
+  const presetWhole = () => { flags = { 'SUP-A': { mode: 'whole', facs: new Set() } }; selected = 'T-01'; };
+  presetScoped();
+
+  // --- rules (port of exposure.py) ---------------------------------------------
+  const activeFlag = (sup) => {
+    const f = flags[sup];
+    if (!f) return null;
+    if (f.mode === 'factories' && f.facs.size === 0) return null; // API would reject with 422
+    return f;
+  };
+  const sourceStatus = (fac) => {
+    const f = activeFlag(factories[fac].sup);
+    if (!f) return 'clean';
+    return f.mode === 'whole' || f.facs.has(fac) ? 'flagged' : 'supplier_risk';
+  };
+  const partStatus = (pid) => {
+    const st = parts[pid].src.map(sourceStatus);
+    const n = st.length, f = st.filter((s) => s === 'flagged').length;
+    if (n && f === n) return 'confirmed';
+    if (f) return 'potential';
+    if (st.includes('supplier_risk')) return 'supplier_risk';
+    return 'clean';
+  };
+  const toyStatus = (tid) =>
+    toys[tid].bom.map(([p]) => partStatus(p)).reduce((a, b) => (SEV[b] > SEV[a] ? b : a), 'clean');
+
+  // --- rendering ----------------------------------------------------------------
+  const $ = (id) => document.getElementById(id);
+  const pill = (s) => `<span class="pill s-${s}">${s}</span>`;
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+  function onTrace() {
+    const t = toys[selected];
+    const ps = new Set(t.bom.map(([p]) => p));
+    const fs = new Set([...ps].flatMap((p) => parts[p].src));
+    const ss = new Set([...fs].map((f) => factories[f].sup));
+    return { ps, fs, ss };
+  }
+
+  function clearCol(id) {
+    const col = $(id);
+    [...col.querySelectorAll('.node')].forEach((n) => n.remove());
+    return col;
+  }
+
+  function render() {
+    const tr = onTrace();
+
+    const colT = clearCol('col-toys');
+    for (const [tid, t] of Object.entries(toys)) {
+      const st = toyStatus(tid);
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = `node st-${st}` + (tid === selected ? ' sel' : '');
+      b.dataset.node = tid;
+      b.setAttribute('aria-pressed', tid === selected);
+      b.innerHTML = `<div class="row"><b>${esc(t.name)}</b>${pill(st)}</div><span class="id">${tid} · ${esc(t.sold)}</span>`;
+      b.addEventListener('click', () => { selected = tid; render(); });
+      colT.appendChild(b);
+    }
+
+    const colP = clearCol('col-parts');
+    for (const [pid, p] of Object.entries(parts)) {
+      const st = partStatus(pid);
+      const d = document.createElement('div');
+      d.className = `node st-${st}` + (tr.ps.has(pid) ? '' : ' dim');
+      d.dataset.node = pid;
+      if (p.src.length > 1) d.classList.add('multi');
+      d.innerHTML = `<div class="row"><b>${esc(p.name)}</b>${pill(st)}</div>
+        <span class="id">${pid}</span>
+        ${p.src.length > 1
+          ? `<span class="multi-tag">${p.src.length} источника: ${p.src.map((f) => `${f} (${factories[f].sup})`).join(' + ')}</span>`
+          : `<span class="id">источник: ${p.src[0]}</span>`}`;
+      colP.appendChild(d);
+    }
+
+    const colF = clearCol('col-facs');
+    for (const [fid, f] of Object.entries(factories)) {
+      const st = sourceStatus(fid);
+      const fl = flags[f.sup];
+      const pickable = fl && fl.mode === 'factories';
+      const el = document.createElement(pickable ? 'button' : 'div');
+      if (pickable) {
+        el.type = 'button';
+        el.setAttribute('aria-pressed', fl.facs.has(fid));
+        el.title = 'Включить или исключить фабрику из флага';
+        el.addEventListener('click', () => {
+          fl.facs.has(fid) ? fl.facs.delete(fid) : fl.facs.add(fid);
+          render();
+        });
+      }
+      el.className = `node st-${st}` + (pickable ? ' pick' : '') + (tr.fs.has(fid) ? '' : ' dim');
+      el.dataset.node = fid;
+      el.innerHTML = `<div class="row"><b class="mono">${fid}</b>${pill(st)}</div><span class="id">${esc(f.where)}</span>`;
+      colF.appendChild(el);
+    }
+
+    const colS = clearCol('col-sups');
+    for (const s of suppliers) {
+      const fl = flags[s.id];
+      const mode = fl ? fl.mode : 'none';
+      const d = document.createElement('div');
+      const st = activeFlag(s.id) ? 'flagged' : 'clean';
+      d.className = `node st-${st}` + (tr.ss.has(s.id) ? '' : ' dim');
+      d.dataset.node = s.id;
+      d.innerHTML = `<div class="row"><b>${esc(s.name)}</b>${activeFlag(s.id) ? '<span class="pill s-flagged">⚑ flag</span>' : ''}</div>
+        <span class="id">${s.id} · ${s.facs.length} фабр.</span>
+        <div class="seg" role="group" aria-label="Флаг для ${s.id}">
+          <button type="button" data-m="none" aria-pressed="${mode === 'none'}">нет</button>
+          <button type="button" data-m="whole" aria-pressed="${mode === 'whole'}">весь</button>
+          <button type="button" data-m="factories" aria-pressed="${mode === 'factories'}">фабрики</button>
+        </div>
+        ${mode === 'factories' && fl.facs.size === 0 ? '<span class="hint">Выберите фабрику: пустой список API отклонит (422)</span>' : ''}`;
+      d.querySelectorAll('.seg button').forEach((b) =>
+        b.addEventListener('click', () => {
+          const m = b.dataset.m;
+          if (m === 'none') delete flags[s.id];
+          else flags[s.id] = { mode: m, facs: m === 'factories' ? new Set(fl && fl.mode === 'factories' ? fl.facs : []) : new Set() };
+          render();
+        }),
+      );
+      colS.appendChild(d);
+    }
+
+    renderTrace();
+    requestAnimationFrame(drawEdges);
+  }
+
+  function renderTrace() {
+    const t = toys[selected];
+    const st = toyStatus(selected);
+    const lines = t.bom
+      .map(([p, q]) => ({ p, q, st: partStatus(p) }))
+      .sort((a, b) => SEV[b.st] - SEV[a.st]);
+    const items = lines.map(({ p, q, st: ps }) => {
+      const srcs = parts[p].src.map((f) => {
+        const ss = sourceStatus(f);
+        const alt = ps !== 'clean' && ss === 'clean' ? ' <span class="muted">(чистая альтернатива)</span>' : '';
+        return `<span class="mono">${f}</span><span class="arrow">→</span><span class="mono">${factories[f].sup}</span> ${pill(ss)}${alt}`;
+      }).join('<span class="muted"> &nbsp;или&nbsp; </span>');
+      return `<li>${pill(ps)} <b>${esc(parts[p].name)}</b> <span class="mono muted">${p} ×${q}</span><span class="arrow">→</span>${srcs}</li>`;
+    }).join('');
+    const why = {
+      confirmed: 'Хотя бы у одной детали флагнуты все источники.',
+      potential: 'Деталь может прийти от флагнутого источника. BOM не говорит, от какого.',
+      supplier_risk: 'Деталь от флагнутого поставщика, но с фабрики, которой нет во флаге.',
+      clean: 'В цепочке нет флагнутых поставщиков.',
+    }[st];
+    $('trace').innerHTML = `<div><b>Трасса: ${esc(t.name)}</b> ${pill(st)} <span class="muted">· ${why}</span></div><ol>${items}</ol>`;
+  }
+
+  // --- edges --------------------------------------------------------------------
+  function drawEdges() {
+    const graph = $('graph');
+    const svg = $('edges');
+    const g = graph.getBoundingClientRect();
+    svg.setAttribute('width', g.width);
+    svg.setAttribute('height', g.height);
+    svg.setAttribute('viewBox', `0 0 ${g.width} ${g.height}`);
+    const node = (id) => graph.querySelector(`[data-node="${id}"]`).getBoundingClientRect();
+    const tr = onTrace();
+    const paths = [];
+    const link = (a, b, cls, on) => {
+      const ra = node(a), rb = node(b);
+      const x1 = ra.right - g.left, y1 = ra.top + ra.height / 2 - g.top;
+      const x2 = rb.left - g.left, y2 = rb.top + rb.height / 2 - g.top;
+      const mx = (x1 + x2) / 2;
+      paths.push(`<path class="edge e-${cls} ${on ? 'on' : 'off'}" d="M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2}"/>`);
+    };
+    for (const [tid, t] of Object.entries(toys))
+      for (const [p] of t.bom) link(tid, p, partStatus(p), tid === selected);
+    for (const [pid, p] of Object.entries(parts))
+      for (const f of p.src) link(pid, f, sourceStatus(f), tr.ps.has(pid));
+    for (const [fid, f] of Object.entries(factories))
+      link(fid, f.sup, activeFlag(f.sup) ? sourceStatus(fid) : 'clean', tr.fs.has(fid));
+    svg.innerHTML = paths.join('');
+  }
+
+  $('preset-scoped').addEventListener('click', () => { presetScoped(); render(); });
+  $('preset-whole').addEventListener('click', () => { presetWhole(); render(); });
+  $('preset-reset').addEventListener('click', () => { flags = {}; render(); });
+  window.addEventListener('resize', () => requestAnimationFrame(drawEdges));
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => requestAnimationFrame(drawEdges));
+  render();
+})();
+</script>
